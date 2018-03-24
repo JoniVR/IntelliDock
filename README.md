@@ -11,4 +11,4 @@ The reason for this is because I have a 13 inch Macbook, so when I'm not docked,
 2. Open a terminal window, navigate to the location where you saved the file (`cd /<folder>/`)
 3. Run `chmod u+x Intellidock.sh` to allow the user to run the script
 4. Run the script in the background `nohup ./Intellidock.sh > /dev/null 2>&1&`
-5. Optionally set the scipt to run at startup (see [this link](https://stackoverflow.com/questions/6442364/running-script-upon-login-mac)).
+5. Optionally set the script to run at startup (see [this link](https://stackoverflow.com/questions/6442364/running-script-upon-login-mac)).
