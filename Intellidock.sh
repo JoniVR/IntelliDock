@@ -22,8 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Save process name to search
-PROCESS=$0
 # Check if Intellidock is already running
 COUNT=$(ps ax | grep -i $0 | grep -v grep | wc -l)
 if [ $COUNT -gt 2 ]
