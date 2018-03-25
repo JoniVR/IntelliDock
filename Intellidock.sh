@@ -26,7 +26,6 @@
 COUNT=$(ps ax | grep -i $0 | grep -v grep | wc -l)
 if [ $COUNT -gt 2 ]
 then
-	echo $COUNT
 	echo "Intellidock is already running. Exiting."
 	exit 1
 fi
