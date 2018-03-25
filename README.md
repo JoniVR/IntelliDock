@@ -24,3 +24,12 @@ defaults write com.apple.dock autohide-delay -float 0 && defaults write com.appl
 ```
 defaults delete com.apple.dock autohide-delay && defaults delete com.apple.dock autohide-time-modifier && killall Dock
 ```
+
+## Author
+Joni Van Roost, joni.VR@hotmail.com
+
+## License
+Intellidock is available under the MIT license. See the [LICENSE](https://github.com/JoniVR/IntelliDock/blob/master/LICENSE) file for more info.
+
+## More
+Feel free to submit a pull request, open an issue or fork this project. Any help is always appreciated.

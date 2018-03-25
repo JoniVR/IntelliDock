@@ -32,21 +32,21 @@ then
 fi
 
 # Previous value of the clammshell mode command. values:  Yes or No.
-previous_value=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
+PREVIOUS_VALUE=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
 # Sleep always returns true, so we can use it as a loop condition.
 while sleep 3
 do
 
 # Command for checking if Device is in "clamshell mode"
-check_dock=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
+CHECK_DOCK=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
 # First we check if clamshell state is different.
-if [ $previous_value != $(echo $check_dock) ]
+if [ $PREVIOUS_VALUE != $(echo $CHECK_DOCK) ]
 then
 
 	# If clamshell state was different, we update the previous_value for next check
-	previous_value=$check_dock
+	PREVIOUS_VALUE=$CHECK_DOCK
 	
 	# If Macbook is in clamshell mode, disable autohide dock
 	if [ $(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=") == "Yes" ]
