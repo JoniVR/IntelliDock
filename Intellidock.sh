@@ -51,16 +51,13 @@ then
 	if [ $CHECK_DOCK == "Yes" ]
 	then
 		echo "Clammshellmode: Yes, autohide: off."
-		defaults write com.apple.Dock autohide -bool FALSE
+		osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to false"
 
 	# If not in clamshell mode, enable autohide dock
 	else 
 		echo "Clamshellmode: No, autohide: on."
-		defaults write com.apple.Dock autohide -bool TRUE
+		osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to true"
 	fi
-
-echo "Restart dock"
-killall Dock
 
 fi
 done
