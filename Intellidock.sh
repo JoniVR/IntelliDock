@@ -41,14 +41,14 @@ do
 CHECK_DOCK=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
 # First we check if clamshell state is different.
-if [ $PREVIOUS_VALUE != $(echo $CHECK_DOCK) ]
+if [ $PREVIOUS_VALUE != $CHECK_DOCK ]
 then
 
 	# If clamshell state was different, we update the previous_value for next check
 	PREVIOUS_VALUE=$CHECK_DOCK
 	
 	# If Macbook is in clamshell mode, disable autohide dock
-	if [ $(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=") == "Yes" ]
+	if [ $CHECK_DOCK == "Yes" ]
 	then
 		echo "Clammshellmode: Yes, autohide: off."
 		defaults write com.apple.Dock autohide -bool FALSE
