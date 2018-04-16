@@ -23,40 +23,42 @@
 # SOFTWARE.
 
 # Check if Intellidock is already running
-COUNT=$(ps ax | grep -i $0 | grep -v grep | wc -l)
-if [ $COUNT -gt 2 ]
+count=$(ps ax | grep -i $0 | grep -v grep | wc -l)
+if [ $count -gt 2 ]
 then
 	echo "Intellidock is already running. Exiting."
 	exit 1
 fi
 
 # Previous value of the clammshell mode command. values:  Yes or No.
-PREVIOUS_VALUE=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
+previous_value=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
 # Sleep always returns true, so we can use it as a loop condition.
 while sleep 3
 do
 
 # Command for checking if Device is in "clamshell mode"
-CHECK_DOCK=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
+check_dock=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
 # First we check if clamshell state is different.
-if [ $PREVIOUS_VALUE != $CHECK_DOCK ]
+if [ $previous_value != $check_dock ]
 then
 
 	# If clamshell state was different, we update the previous_value for next check
-	PREVIOUS_VALUE=$CHECK_DOCK
+	previous_value=$check_dock
 	
 	# If Macbook is in clamshell mode, disable autohide dock
-	if [ $CHECK_DOCK == "Yes" ]
+	if [ $check_dock == "Yes" ]
 	then
 		echo "Clammshellmode: Yes, autohide: off."
 		osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to false"
+		osascript -e 'display notification "Device in closed-lid mode, Dock autohide: off." with title "Intellidock"'
 
 	# If not in clamshell mode, enable autohide dock
 	else 
 		echo "Clamshellmode: No, autohide: on."
 		osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to true"
+		osascript -e 'display notification "Device lid opened, Dock autohide: on." with title "Intellidock"'
 	fi
 
 fi
