@@ -30,6 +30,8 @@ then
 	exit 1
 fi
 
+first_time="true"
+
 # Previous value of the clammshell mode command. values:  Yes or No.
 previous_value=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
@@ -41,11 +43,12 @@ do
 check_dock=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState  | head -1 | cut -f2 -d"=")
 
 # First we check if clamshell state is different.
-if [ $previous_value != $check_dock ]
+if [ $previous_value != $check_dock ] || [ $first_time == "true" ]
 then
 
 	# If clamshell state was different, we update the previous_value for next check
 	previous_value=$check_dock
+	first_time="false"
 	
 	# If Macbook is in clamshell mode, disable autohide dock
 	if [ $check_dock == "Yes" ]
