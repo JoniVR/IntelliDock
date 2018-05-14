@@ -54,16 +54,20 @@ then
 	if [ $check_dock == "Yes" ]
 	then
 		echo "Clammshellmode: Yes, autohide: off."
-		osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to false"
-		osascript -e 'display notification "Device in closed-lid mode, Dock autohide: off." with title "Intellidock"'
-
+		if [ "$1" ==  "-n" ]
+		then
+			osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to false"
+			osascript -e 'display notification "Device in closed-lid mode, Dock autohide: off." with title "Intellidock"'
+		fi
 	# If not in clamshell mode, enable autohide dock
 	else 
 		echo "Clamshellmode: No, autohide: on."
-		osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to true"
-		osascript -e 'display notification "Device lid opened, Dock autohide: on." with title "Intellidock"'
+		if [ "$1" == "-n" ]
+		then
+			osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to true"
+			osascript -e 'display notification "Device lid opened, Dock autohide: on." with title "Intellidock"'
+		fi
 	fi
-
 fi
 done
 

@@ -13,6 +13,11 @@ I built this because I have a 13-inch Macbook Pro, when I'm not docked, I don't 
 4. Run the script in the background `nohup ./Intellidock.sh > /dev/null 2>&1&`
 5. Optionally set the script to run at startup (see [this link](https://stackoverflow.com/questions/6442364/running-script-upon-login-mac)).
 
+To receive a notification every time the state changes, run Intellidock with the `-n` parameter.
+```
+nohup ./Intellidock.sh -n > /dev/null 2>&1&
+````
+
 ## Extra
 Something I've always hated about auto-hide on the dock is that there is a delay. 
 
