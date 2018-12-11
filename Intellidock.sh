@@ -52,7 +52,10 @@ set_dock_mode()
 
 usage() 
 { 
-	echo "usage: $0" 1>&2; 
+	echo ""
+	echo "usage: $0 [OPTIONS]" 1>&2; 
+	echo ""
+	echo "OPTIONS:"
 	echo "-n to enable notifications"
 	echo "-l to enable logging. You can also provide a path for the log file: $0 -l ~/logfiles/"
 	echo "Default logfile location is the current directory."
@@ -112,7 +115,6 @@ while getopts ":nl:" o; do
 				ENABLE_LOGGING=1
 				log "info: no log path supplied. Will use current directory for log file."
 			fi
-			echo "wrong"
 			;;
         \?)
 			log "error: invalid option -$OPTARG"
