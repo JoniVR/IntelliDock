@@ -39,7 +39,7 @@ notification()
 	fi
 }
 
-clamshell_state_state() 
+check_clamshell_state() 
 {
 	local state=$(ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState | head -1 | cut -f2 -d"=")
 	echo $state
@@ -74,7 +74,7 @@ FIRST_TIME=1
 ENABLE_LOGGING=0
 ENABLE_NOTIFICATIONS=0
 # Previous value of the clammshell mode command. values:  Yes or No.
-PREVIOUS_CLAMSHELL_STATE=$(clamshell_state_state)
+PREVIOUS_CLAMSHELL_STATE=$(check_clamshell_state)
 
 # Check if Intellidock is already running
 for pid in $(pgrep -f Intellidock.sh); do
@@ -148,7 +148,8 @@ fi
 # Sleep always returns true, so we can use it as a loop condition.
 while sleep 3; do
 	# Command for checking if Device is in "clamshell mode"
-	clamshell_state=$(clamshell_state_state)
+	clamshell_state=$(check_clamshell_state
+)
 
 	# First we check if clamshell state is different.
 	if [ $PREVIOUS_CLAMSHELL_STATE != $clamshell_state ] || [ $FIRST_TIME -eq 1 ]; then
