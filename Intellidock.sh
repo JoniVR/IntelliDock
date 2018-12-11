@@ -81,10 +81,10 @@ for pid in $(pgrep -f Intellidock.sh); do
     if [ $pid != $$ ]; then
         log "info: Intellidock is already running with PID $pid"
         exit 1
-    else
-    	log "info: Running with PID $pid"
     fi
 done
+
+log "info: Running with PID $$"
 
 # parse arguments
 while getopts ":nl:" o; do
@@ -148,8 +148,7 @@ fi
 # Sleep always returns true, so we can use it as a loop condition.
 while sleep 3; do
 	# Command for checking if Device is in "clamshell mode"
-	clamshell_state=$(check_clamshell_state
-)
+	clamshell_state=$(check_clamshell_state)
 
 	# First we check if clamshell state is different.
 	if [ $PREVIOUS_CLAMSHELL_STATE != $clamshell_state ] || [ $FIRST_TIME -eq 1 ]; then
